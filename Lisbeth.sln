@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lisbeth.Application", "Application\Lisbeth.Application.csproj", "{B268A226-EEB1-4915-AECC-8AD2A4AF614B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lisbeth.API.Application", "Lisbeth.Application\Lisbeth.API.Application.csproj", "{B268A226-EEB1-4915-AECC-8AD2A4AF614B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lisbeth.Domain", "Domain\Lisbeth.Domain.csproj", "{EDBC75E3-40CB-4429-A710-19F2651D95A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lisbeth.Domain", "Lisbeth.Domain\Lisbeth.Domain.csproj", "{EDBC75E3-40CB-4429-A710-19F2651D95A5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{485906B7-D808-404C-A852-485DAC01AF73}"
 EndProject
@@ -23,11 +23,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit", "Unit", "{EA7357D8-1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{420ED127-4773-458F-BB3D-D1AA45EFC1D9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lisbeth.DataAccessLayer", "DataAccessLayer\Lisbeth.DataAccessLayer.csproj", "{25EFDBAB-6D1A-4E74-B827-D9D71CD13324}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lisbeth.DataAccessLayer", "Lisbeth.DataAccessLayer\Lisbeth.DataAccessLayer.csproj", "{25EFDBAB-6D1A-4E74-B827-D9D71CD13324}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lisbeth.API", "API\Lisbeth.API.csproj", "{2C50FF1F-B164-49D8-B2D5-59020702E53B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lisbeth.API", "Lisbeth.API\Lisbeth.API.csproj", "{2C50FF1F-B164-49D8-B2D5-59020702E53B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lisbeth.Bot", "Bot\Lisbeth.Bot.csproj", "{F552E427-5CED-4588-AAE9-A2B080790AE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lisbeth.Bot", "Lisbeth.Bot\Lisbeth.Bot.csproj", "{F552E427-5CED-4588-AAE9-A2B080790AE2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lisbeth.Bot.Application", "Lisbeth.Bot.Application\Lisbeth.Bot.Application.csproj", "{46E3D932-BCB5-40E7-8F79-9E3E60289B9C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lisbeth.Shared.Application", "Lisbeth.Shared.Application\Lisbeth.Shared.Application.csproj", "{7CB02F94-E906-44C8-A117-0F3BF896F594}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +59,14 @@ Global
 		{F552E427-5CED-4588-AAE9-A2B080790AE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F552E427-5CED-4588-AAE9-A2B080790AE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F552E427-5CED-4588-AAE9-A2B080790AE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46E3D932-BCB5-40E7-8F79-9E3E60289B9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46E3D932-BCB5-40E7-8F79-9E3E60289B9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46E3D932-BCB5-40E7-8F79-9E3E60289B9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46E3D932-BCB5-40E7-8F79-9E3E60289B9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CB02F94-E906-44C8-A117-0F3BF896F594}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CB02F94-E906-44C8-A117-0F3BF896F594}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CB02F94-E906-44C8-A117-0F3BF896F594}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CB02F94-E906-44C8-A117-0F3BF896F594}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +79,8 @@ Global
 		{25EFDBAB-6D1A-4E74-B827-D9D71CD13324} = {BC67B4CC-6ACC-49A0-B471-FD6A8F9076D1}
 		{2C50FF1F-B164-49D8-B2D5-59020702E53B} = {485906B7-D808-404C-A852-485DAC01AF73}
 		{F552E427-5CED-4588-AAE9-A2B080790AE2} = {C0ACEC10-44D2-4703-BE1E-803C6EEBBC6F}
+		{46E3D932-BCB5-40E7-8F79-9E3E60289B9C} = {8438663E-22BA-4341-B975-98A0669CE630}
+		{7CB02F94-E906-44C8-A117-0F3BF896F594} = {8438663E-22BA-4341-B975-98A0669CE630}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4BCDEA63-39FA-4F77-8530-0E1AF370C3A7}

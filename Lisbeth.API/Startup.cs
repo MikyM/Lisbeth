@@ -11,7 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Bot;
+using Autofac;
+using Lisbeth.API.Modules;
 
 namespace API
 {
@@ -33,11 +34,17 @@ namespace API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Lisbeth", Version = "v1" });
             });
-            services.AddSingleton<Random>();
-            services.AddSingleton<BotService>();
-            services.AddHostedService<NormHostedService>();
         }
 
+        /// <summary>
+        /// Configure Container using Autofac: Register DI.
+        /// This is called AFTER ConfigureServices.So things you register here OVERRIDE things registered in ConfigureServices.
+        /// </summary>
+        /// <param name="builder">Container builder.</param>
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterModule(new ContainerModule());
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
