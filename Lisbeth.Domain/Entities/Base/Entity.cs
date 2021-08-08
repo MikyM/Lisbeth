@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Lisbeth.Domain.Entities.Base
 {
@@ -17,6 +19,8 @@ namespace Lisbeth.Domain.Entities.Base
     public abstract class Entity<TId>
     {
         public virtual TId Id { get; protected set; }
+        public virtual DateTime CreatedAt { get; } = DateTime.UtcNow;
+        public virtual DateTime? UpdatedAt { get; }
 
         protected Entity()
         {

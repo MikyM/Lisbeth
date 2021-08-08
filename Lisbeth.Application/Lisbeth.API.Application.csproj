@@ -9,4 +9,12 @@
     <Folder Include="Services\Base\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Lisbeth.DataAccessLayer\Lisbeth.DataAccessLayer.csproj" />
+  </ItemGroup>
+
 </Project>
