@@ -5,7 +5,6 @@ using AutoMapper.Extensions.ExpressionMapping;
 using Lisbeth.API.Application.Interfaces;
 using Lisbeth.API.Application.Services;
 using Lisbeth.DataAccessLayer.DbContext;
-using Lisbeth.DataAccessLayer.Interfaces.Base;
 using Lisbeth.DataAccessLayer.Repositories.Base;
 using Lisbeth.DataAccessLayer.UnitOfWork;
 using Lisbeth.Shared.Application.Interfaces.Base;

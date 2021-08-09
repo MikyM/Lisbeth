@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using Lisbeth.DataAccessLayer.Interfaces.Base;
+using Lisbeth.DataAccessLayer.Interfaces.Repositories.Base;
 using Lisbeth.Domain.Entities.Base;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Lisbeth.DataAccessLayer.Repositories.Base
 {

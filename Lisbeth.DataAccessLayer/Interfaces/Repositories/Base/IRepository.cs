@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Lisbeth.Domain.Entities.Base;
 
-namespace Lisbeth.DataAccessLayer.Interfaces.Base
+namespace Lisbeth.DataAccessLayer.Interfaces.Repositories.Base
 {
     public interface IRepository<TEntity> : IReadOnlyRepository<TEntity> where TEntity : Entity
     {

@@ -6,13 +6,12 @@ using AutoMapper;
 using Lisbeth.DataAccessLayer.Repositories.Base;
 using Lisbeth.DataAccessLayer.UnitOfWork;
 using Lisbeth.Domain.DTOs.Base;
-using Lisbeth.Domain.Entities;
 using Lisbeth.Domain.Entities.Base;
 using Lisbeth.Shared.Application.Interfaces.Base;
 
 namespace Lisbeth.Shared.Application.Services.Base
 {
-    public class CrudService<TEntity, TDto> : ReadOnlyService<TEntity, TDto>, ICrudService<TEntity, TDto> where TEntity : Entity where TDto : Dto
+    public class CrudService<TEntity, TDto> : ReadOnlyService<TEntity, TDto>, ICrudService<TEntity, TDto> where TEntity : Entity where TDto : IDto
     {
         public CrudService(IMapper mapper, IUnitOfWork uof) : base(mapper, uof)
         {
@@ -38,7 +37,7 @@ namespace Lisbeth.Shared.Application.Services.Base
             return entity.Id;
         }
 
-        public async Task<long> Add<TPostDto>(TPostDto dto, bool shouldSave = false) where TPostDto : Dto
+        public async Task<long> Add<TPostDto>(TPostDto dto, bool shouldSave = false) where TPostDto : IRequestDto
         {
             var entity = _mapper.Map<TEntity>(dto);
             try
@@ -58,7 +57,7 @@ namespace Lisbeth.Shared.Application.Services.Base
             return entity.Id;
         }
 
-        public async Task<bool> Update<TPatchDto>(TPatchDto dto, bool shouldSave = false) where TPatchDto : Dto
+        public async Task<bool> Update<TPatchDto>(TPatchDto dto, bool shouldSave = false) where TPatchDto : IRequestDto
         {
             _unitOfWork.GetRepository<TEntity, Repository<TEntity>>().Update(_mapper.Map<TEntity>(dto));
             if (shouldSave)
@@ -86,7 +85,7 @@ namespace Lisbeth.Shared.Application.Services.Base
             //to do
         }
 
-        public async Task<bool> UpdateRange<TPatchDto>(IEnumerable<TPatchDto> dto, bool shouldSave = false) where TPatchDto : Dto
+        public async Task<bool> UpdateRange<TPatchDto>(IEnumerable<TPatchDto> dto, bool shouldSave = false) where TPatchDto : IRequestDto
         {
             _unitOfWork.GetRepository<TEntity, Repository<TEntity>>().UpdateRange(_mapper.Map<IEnumerable<TEntity>>(dto));
             if (shouldSave)
@@ -114,7 +113,7 @@ namespace Lisbeth.Shared.Application.Services.Base
             return entity.Id;
         }
 
-        public async Task<long> AddOrUpdate<TPutDto>(TPutDto dto, bool shouldSave = false) where TPutDto : Dto
+        public async Task<long> AddOrUpdate<TPutDto>(TPutDto dto, bool shouldSave = false) where TPutDto : IRequestDto
         {
             var entity = _mapper.Map<TEntity>(dto);
             try
@@ -154,7 +153,7 @@ namespace Lisbeth.Shared.Application.Services.Base
             return entities.Select(x => x.Id).ToList();
         }
 
-        public async Task<List<long>> AddOrUpdateRange<TPutDto>(IEnumerable<TPutDto> dtos, bool shouldSave = false) where TPutDto : Dto
+        public async Task<List<long>> AddOrUpdateRange<TPutDto>(IEnumerable<TPutDto> dtos, bool shouldSave = false) where TPutDto : IRequestDto
         {
             var entities = _mapper.Map<IEnumerable<TEntity>>(dtos).ToList();
             try
@@ -193,7 +192,7 @@ namespace Lisbeth.Shared.Application.Services.Base
             return true;
         }
 
-        public async Task<bool> Delete<TDeleteDto>(TDeleteDto dto, bool shouldSave = false) where TDeleteDto : Dto
+        public async Task<bool> Delete<TDeleteDto>(TDeleteDto dto, bool shouldSave = false) where TDeleteDto : IRequestDto
         {
             try
             {
@@ -258,7 +257,7 @@ namespace Lisbeth.Shared.Application.Services.Base
             return true;
         }
 
-        public async Task<bool> DeleteRange<TDeleteDto>(IEnumerable<TDeleteDto> dtos, bool shouldSave = false) where TDeleteDto : Dto
+        public async Task<bool> DeleteRange<TDeleteDto>(IEnumerable<TDeleteDto> dtos, bool shouldSave = false) where TDeleteDto : IRequestDto
         {
             try
             {

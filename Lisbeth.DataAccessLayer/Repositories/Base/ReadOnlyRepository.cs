@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Lisbeth.DataAccessLayer.Filters;
-using Lisbeth.DataAccessLayer.Interfaces.Base;
+using Lisbeth.DataAccessLayer.Interfaces.Repositories.Base;
+using Lisbeth.DataAccessLayer.Interfaces.Specifications.Base;
+using Lisbeth.DataAccessLayer.Specifications.Base;
 using Lisbeth.Domain.Entities.Base;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,48 +28,37 @@ namespace Lisbeth.DataAccessLayer.Repositories.Base
             return await _context.Set<TEntity>().FindAsync(keyValues);
         }
 
-        public async Task<IEnumerable<TEntity>> GetWithRawSqlAsync(string query, params object[] parameters)
+        public async Task<IReadOnlyList<TEntity>> GetWithRawSqlAsync(string query, params object[] parameters)
         {
             return await _context.Set<TEntity>().FromSqlRaw(query, parameters).AsNoTracking().ToListAsync();
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public async Task<IReadOnlyList<TEntity>> GetBySpecificationsAsync(ISpecifications<TEntity> baseSpecifications = null)
         {
-            return await _context.Set<TEntity>().AsNoTracking().ToListAsync();
+            return await SpecificationEvaluator<TEntity>.GetQuery(_context.Set<TEntity>().AsQueryable(), baseSpecifications)
+                    .AsNoTracking()
+                    .ToListAsync();
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync(PaginationFilter filter)
+        public async Task<IReadOnlyList<TEntity>> GetBySpecificationsAsync(PaginationFilter filter, ISpecifications<TEntity> baseSpecifications = null)
         {
-            return await _context.Set<TEntity>()
-                .Skip((filter.PageNumber - 1) * filter.PageSize)
-                .Take(filter.PageSize)
-                .AsNoTracking()
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<TEntity>> GetWhereAsync(Expression<Func<TEntity, bool>> predicate)
-        {
-            return await _context.Set<TEntity>().Where(predicate).AsNoTracking().ToListAsync();
-        }
-
-        public async Task<IEnumerable<TEntity>> GetWhereAsync(Expression<Func<TEntity, bool>> predicate, PaginationFilter filter)
-        {
-            return await _context.Set<TEntity>()
-                .Where(predicate)
-                .Skip((filter.PageNumber - 1) * filter.PageSize)
-                .Take(filter.PageSize)
-                .AsNoTracking()
-                .ToListAsync();
+            return await SpecificationEvaluator<TEntity>.GetQuery(_context.Set<TEntity>().AsQueryable(), baseSpecifications)
+                    .Skip((filter.PageNumber - 1) * filter.PageSize)
+                    .Take(filter.PageSize)
+                    .AsNoTracking()
+                    .ToListAsync();
         }
 
         public async Task<long> CountAsync()
         {
-            return await _context.Set<TEntity>().AsNoTracking().CountAsync();
+            return await _context.Set<TEntity>().AsNoTracking().LongCountAsync();
         }
 
-        public async Task<long> CountWhereAsync(Expression<Func<TEntity, bool>> predicate)
+        public async Task<long> CountWhereAsync(ISpecifications<TEntity> specifications = null)
         {
-            return await _context.Set<TEntity>().Where(predicate).AsNoTracking().CountAsync();
+            return await SpecificationEvaluator<TEntity>.GetQuery(_context.Set<TEntity>().AsQueryable(), specifications)
+                .AsNoTracking()
+                .LongCountAsync();
         }
     }
 }

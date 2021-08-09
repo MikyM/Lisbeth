@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using Lisbeth.DataAccessLayer.Filters;
+using Lisbeth.DataAccessLayer.Interfaces.Specifications.Base;
 using Lisbeth.DataAccessLayer.Repositories.Base;
 using Lisbeth.DataAccessLayer.UnitOfWork;
 using Lisbeth.Domain.DTOs.Base;
@@ -12,7 +13,7 @@ using Lisbeth.Shared.Application.Interfaces.Base;
 
 namespace Lisbeth.Shared.Application.Services.Base
 {
-    public class ReadOnlyService<TEntity, TDto> : ServiceBase, IReadOnlyService<TEntity, TDto> where TEntity : Entity where TDto : Dto
+    public class ReadOnlyService<TEntity, TDto> : ServiceBase, IReadOnlyService<TEntity, TDto> where TEntity : Entity where TDto : IDto
     {
 
         public ReadOnlyService(IMapper mapper, IUnitOfWork uof) : base(mapper, uof)
@@ -24,80 +25,54 @@ namespace Lisbeth.Shared.Application.Services.Base
             return _mapper.Map<TDto>(await _unitOfWork.GetRepository<TEntity, ReadOnlyRepository<TEntity>>().GetAsync(id));
         }
 
-        public async Task<TGetDto> GetAsync<TGetDto>(long id) where TGetDto : Dto
+        public async Task<TGetDto> GetAsync<TGetDto>(long id) where TGetDto : IResponseDto
         {
             return _mapper.Map<TGetDto>(await _unitOfWork.GetRepository<TEntity, ReadOnlyRepository<TEntity>>().GetAsync(id));
         }
 
-        public async Task<IEnumerable<TDto>> GetAllAsync()
+        public async Task<IReadOnlyList<TDto>> GetBySpecificationsAsync(ISpecifications<TEntity> specifications = null)
         {
-            return _mapper.Map<IEnumerable<TDto>>(await _unitOfWork.GetRepository<TEntity, ReadOnlyRepository<TEntity>>().GetAllAsync());
-        }
-
-        public async Task<IEnumerable<TGetDto>> GetAllAsync<TGetDto>() where TGetDto : Dto
-        {
-            return _mapper.Map<IEnumerable<TGetDto>>(await _unitOfWork.GetRepository<TEntity, ReadOnlyRepository<TEntity>>().GetAllAsync());
-        }
-
-        public async Task<IEnumerable<TDto>> GetAllAsync(PaginationFilterDto filter)
-        {
-            return _mapper.Map<IEnumerable<TDto>>(
+            return _mapper.Map<IReadOnlyList<TDto>>(
                 await _unitOfWork
                     .GetRepository<TEntity, ReadOnlyRepository<TEntity>>()
-                    .GetAllAsync(_mapper.Map<PaginationFilter>(filter)));
+                    .GetBySpecificationsAsync(specifications));
         }
 
-        public async Task<IEnumerable<TGetDto>> GetAllAsync<TGetDto>(PaginationFilterDto filter) where TGetDto : Dto
+        public async Task<IReadOnlyList<TGetDto>> GetBySpecificationsAsync<TGetDto>(ISpecifications<TEntity> specifications = null) where TGetDto : IResponseDto
         {
-            return _mapper.Map<IEnumerable<TGetDto>>(
+            return _mapper.Map<IReadOnlyList<TGetDto>>(
                 await _unitOfWork
                     .GetRepository<TEntity, ReadOnlyRepository<TEntity>>()
-                    .GetAllAsync(_mapper.Map<PaginationFilter>(filter)));
+                    .GetBySpecificationsAsync(specifications));
         }
 
-        public async Task<IEnumerable<TDto>> GetWhereAsync(Expression<Func<TDto, bool>> predicate)
+        public async Task<IReadOnlyList<TDto>> GetBySpecificationsAsync(PaginationFilterDto filter, ISpecifications<TEntity> specifications = null)
         {
-            return _mapper.Map<IEnumerable<TDto>>(
+            return _mapper.Map<IReadOnlyList<TDto>>(
                 await _unitOfWork
                     .GetRepository<TEntity, ReadOnlyRepository<TEntity>>()
-                    .GetWhereAsync(_mapper.Map<Expression<Func<TEntity, bool>>>(predicate)));
+                    .GetBySpecificationsAsync(_mapper.Map<PaginationFilter>(filter), specifications));
         }
 
-        public async Task<IEnumerable<TGetDto>> GetWhereAsync<TGetDto>(Expression<Func<TGetDto, bool>> predicate) where TGetDto : Dto
+        public async Task<IReadOnlyList<TGetDto>> GetBySpecificationsAsync<TGetDto>(PaginationFilterDto filter, ISpecifications<TEntity> specifications = null) where TGetDto : IResponseDto
         {
-            return _mapper.Map<IEnumerable<TGetDto>>(
+            return _mapper.Map<IReadOnlyList<TGetDto>>(
                 await _unitOfWork
                     .GetRepository<TEntity, ReadOnlyRepository<TEntity>>()
-                    .GetWhereAsync(_mapper.Map<Expression<Func<TEntity, bool>>>(predicate)));
+                    .GetBySpecificationsAsync(_mapper.Map<PaginationFilter>(filter), specifications));
         }
 
-        public async Task<IEnumerable<TDto>> GetWhereAsync(Expression<Func<TDto, bool>> predicate, PaginationFilterDto filter)
+        public async Task<IReadOnlyList<TDto>> GetWithRawSqlAsync(string query, params object[] parameters)
         {
-            return _mapper.Map<IEnumerable<TDto>>(
-                await _unitOfWork
-                    .GetRepository<TEntity, ReadOnlyRepository<TEntity>>()
-                    .GetWhereAsync(_mapper.Map<Expression<Func<TEntity, bool>>>(predicate), _mapper.Map<PaginationFilter>(filter)));
-        }
-
-        public async Task<IEnumerable<TGetDto>> GetWhereAsync<TGetDto>(Expression<Func<TGetDto, bool>> predicate, PaginationFilterDto filter) where TGetDto : Dto
-        {
-            return _mapper.Map<IEnumerable<TGetDto>>(
-                await _unitOfWork
-                    .GetRepository<TEntity, ReadOnlyRepository<TEntity>>()
-                    .GetWhereAsync(_mapper.Map<Expression<Func<TEntity, bool>>>(predicate), _mapper.Map<PaginationFilter>(filter)));
-        }
-
-        public async Task<IEnumerable<TDto>> GetWithRawSqlAsync(string query, params object[] parameters)
-        {
-            return _mapper.Map<IEnumerable<TDto>>(
+            return _mapper.Map<IReadOnlyList<TDto>>(
                 await _unitOfWork
                     .GetRepository<TEntity, ReadOnlyRepository<TEntity>>()
                     .GetWithRawSqlAsync(query, parameters));
         }
 
-        public async Task<IEnumerable<TGetDto>> GetWithRawSqlAsync<TGetDto>(string query, params object[] parameters) where TGetDto : Dto
+        public async Task<IReadOnlyList<TGetDto>> GetWithRawSqlAsync<TGetDto>(string query, params object[] parameters) where TGetDto : IResponseDto
         {
-            return _mapper.Map<IEnumerable<TGetDto>>(
+            return _mapper.Map<IReadOnlyList<TGetDto>>(
                 await _unitOfWork
                     .GetRepository<TEntity, ReadOnlyRepository<TEntity>>()
                     .GetWithRawSqlAsync(query, parameters));
@@ -108,14 +83,16 @@ namespace Lisbeth.Shared.Application.Services.Base
             return await _unitOfWork.GetRepository<TEntity, ReadOnlyRepository<TEntity>>().CountAsync();
         }
 
-        public async Task<long> CountWhereAsync(Expression<Func<TDto, bool>> predicate)
+        public async Task<long> CountWhereAsync(ISpecifications<TEntity> specifications = null)
         {
-            return await _unitOfWork.GetRepository<TEntity, ReadOnlyRepository<TEntity>>().CountWhereAsync(_mapper.Map<Expression<Func<TEntity, bool>>>(predicate));
+            return await _unitOfWork.GetRepository<TEntity, ReadOnlyRepository<TEntity>>()
+                .CountWhereAsync(specifications);
         }
 
-        public async Task<long> CountWhereAsync<TGetDto>(Expression<Func<TGetDto, bool>> predicate) where TGetDto : Dto
+        public async Task<long> CountWhereAsync<TGetDto>(ISpecifications<TEntity> specifications = null) where TGetDto : IResponseDto
         {
-            return await _unitOfWork.GetRepository<TEntity, ReadOnlyRepository<TEntity>>().CountWhereAsync(_mapper.Map<Expression<Func<TEntity, bool>>>(predicate));
+            return await _unitOfWork.GetRepository<TEntity, ReadOnlyRepository<TEntity>>()
+                .CountWhereAsync(specifications);
         }
     }
 }

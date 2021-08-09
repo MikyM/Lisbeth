@@ -6,9 +6,9 @@ using Lisbeth.DataAccessLayer.Filters;
 
 namespace Lisbeth.API.Helpers
 {
-    public class PaginationHelper
+    public static class PaginationHelper
     {
-        public static PagedResponse<List<T>> CreatePagedReponse<T>(List<T> pagedData, PaginationFilter validFilter, int totalRecords, IUriService uriService, string route)
+        public static PagedResponse<List<T>> CreatePagedReponse<T>(List<T> pagedData, PaginationFilter validFilter, long totalRecords, IUriService uriService, string route)
         {
             var respose = new PagedResponse<List<T>>(pagedData, validFilter.PageNumber, validFilter.PageSize);
             var totalPages = ((double)totalRecords / (double)validFilter.PageSize);

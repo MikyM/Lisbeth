@@ -2,8 +2,8 @@
 
 namespace Lisbeth.Domain.DTOs
 {
-    public class TestDto : IDto
+    public class RequestTestDto : TestDto, IRequestDto
     {
-        public string Name { get; set; }
+
     }
 }
