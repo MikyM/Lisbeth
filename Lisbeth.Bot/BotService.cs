@@ -33,7 +33,7 @@ namespace Bot
 
             DiscordConfiguration ClientConfig = new DiscordConfiguration
             {
-                Token = "ODU0MzI5OTE5NTU0NDUzNTE0.YMiWvQ.t2ubmyiYOlMmGvXcYEoTvL8Bm6M",
+                Token = "kek",
                 TokenType = TokenType.Bot,
                 MinimumLogLevel = LogLevel.Information,
                 // LoggerFactory = loggerFactory,

@@ -7,7 +7,7 @@ using Lisbeth.Domain.Entities;
 using Lisbeth.Domain.Entities.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 #nullable enable
 
@@ -25,11 +25,11 @@ namespace Lisbeth.DataAccessLayer.DbContext
 
         private static void OnEntityStateChanged(object? sender, EntityStateChangedEventArgs e)
         {
-            if (e.NewState == EntityState.Modified && e.Entry.Entity is Entity entity)
+            if (e.NewState is EntityState.Modified && e.Entry.Entity is Entity)
                 e.Entry.CurrentValues["UpdatedAt"] = DateTime.UtcNow;
         }
 
-        public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
+        public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
             var auditEntries = OnBeforeSaveChanges();
             var result = await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
@@ -43,11 +43,10 @@ namespace Lisbeth.DataAccessLayer.DbContext
             var auditEntries = new List<AuditEntry>();
             foreach (var entry in ChangeTracker.Entries())
             {
-                if (entry.Entity is AuditLog || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
+                if (entry.Entity is AuditLog || entry.State is EntityState.Detached or EntityState.Unchanged)
                     continue;
 
-                var auditEntry = new AuditEntry(entry);
-                auditEntry.TableName = entry.Metadata.GetTableName();
+                var auditEntry = new AuditEntry(entry.Metadata.GetTableName());
                 auditEntries.Add(auditEntry);
 
                 foreach (var property in entry.Properties)
@@ -90,7 +89,7 @@ namespace Lisbeth.DataAccessLayer.DbContext
             // Save audit entities that have all the modifications
             foreach (var auditEntry in auditEntries.Where(_ => !_.HasTemporaryProperties))
             {
-                AuditLogs.Add(auditEntry.ToAudit());
+                AuditLogs.Add(auditEntry.ToAuditLog());
             }
 
             // keep a list of entries where the value of some properties are unknown at this step
@@ -118,7 +117,7 @@ namespace Lisbeth.DataAccessLayer.DbContext
                 }
 
                 // Save the Audit entry
-                AuditLogs.Add(auditEntry.ToAudit());
+                AuditLogs.Add(auditEntry.ToAuditLog());
             }
 
             return SaveChangesAsync();
@@ -127,28 +126,28 @@ namespace Lisbeth.DataAccessLayer.DbContext
 
     public class AuditEntry
     {
-        public AuditEntry(EntityEntry entry)
+        public AuditEntry(string tableName)
         {
-            Entry = entry;
+            TableName = tableName;
         }
 
-        public EntityEntry Entry { get; }
-        public string TableName { get; set; }
-        public Dictionary<string, object> KeyValues { get; } = new Dictionary<string, object>();
-        public Dictionary<string, object> OldValues { get; } = new Dictionary<string, object>();
-        public Dictionary<string, object> NewValues { get; } = new Dictionary<string, object>();
-        public List<PropertyEntry> TemporaryProperties { get; } = new List<PropertyEntry>();
+        public string TableName { get; }
+        public Dictionary<string, object> KeyValues { get; } = new ();
+        public Dictionary<string, object> OldValues { get; } = new ();
+        public Dictionary<string, object> NewValues { get; } = new ();
+        public List<PropertyEntry> TemporaryProperties { get; } = new ();
 
         public bool HasTemporaryProperties => TemporaryProperties.Any();
 
-        public AuditLog ToAudit()
+        public AuditLog ToAuditLog()
         {
-            var audit = new AuditLog();
-            audit.TableName = TableName;
-            audit.KeyValues = JsonConvert.SerializeObject(KeyValues);
-            audit.OldValues = OldValues.Count == 0 ? null : JsonConvert.SerializeObject(OldValues);
-            audit.NewValues = NewValues.Count == 0 ? null : JsonConvert.SerializeObject(NewValues);
-            return audit;
+            return new()
+            {
+                TableName = TableName,
+                KeyValues = JsonSerializer.Serialize(KeyValues),
+                OldValues = OldValues.Count is 0 ? null : JsonSerializer.Serialize(OldValues),
+                NewValues = NewValues.Count is 0 ? null : JsonSerializer.Serialize(NewValues)
+            };
         }
     }
 }
