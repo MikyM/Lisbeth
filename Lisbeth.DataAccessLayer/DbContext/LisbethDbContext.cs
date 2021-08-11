@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Lisbeth.Domain.Entities;
+﻿using Lisbeth.Domain.Entities;
 using Lisbeth.Domain.Entities.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
 
 #nullable enable
 
@@ -29,7 +29,8 @@ namespace Lisbeth.DataAccessLayer.DbContext
                 e.Entry.CurrentValues["UpdatedAt"] = DateTime.UtcNow;
         }
 
-        public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess,
+            CancellationToken cancellationToken = default)
         {
             var auditEntries = OnBeforeSaveChanges();
             var result = await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
@@ -43,8 +44,7 @@ namespace Lisbeth.DataAccessLayer.DbContext
             var auditEntries = new List<AuditEntry>();
             foreach (var entry in ChangeTracker.Entries())
             {
-                if (entry.Entity is AuditLog || entry.State is EntityState.Detached or EntityState.Unchanged)
-                    continue;
+                if (entry.Entity is AuditLog || entry.State is EntityState.Detached or EntityState.Unchanged) continue;
 
                 var auditEntry = new AuditEntry(entry.Metadata.GetTableName());
                 auditEntries.Add(auditEntry);
@@ -81,6 +81,7 @@ namespace Lisbeth.DataAccessLayer.DbContext
                                 auditEntry.OldValues[propertyName] = property.OriginalValue;
                                 auditEntry.NewValues[propertyName] = property.CurrentValue;
                             }
+
                             break;
                     }
                 }
@@ -98,9 +99,8 @@ namespace Lisbeth.DataAccessLayer.DbContext
 
         private Task OnAfterSaveChanges(List<AuditEntry> auditEntries)
         {
-            if (auditEntries.Count == 0)
-                return Task.CompletedTask;
-    
+            if (auditEntries.Count == 0) return Task.CompletedTask;
+
             foreach (var auditEntry in auditEntries)
             {
                 // Get the final value of the temporary properties
@@ -132,10 +132,10 @@ namespace Lisbeth.DataAccessLayer.DbContext
         }
 
         public string TableName { get; }
-        public Dictionary<string, object> KeyValues { get; } = new ();
-        public Dictionary<string, object> OldValues { get; } = new ();
-        public Dictionary<string, object> NewValues { get; } = new ();
-        public List<PropertyEntry> TemporaryProperties { get; } = new ();
+        public Dictionary<string, object> KeyValues { get; } = new();
+        public Dictionary<string, object> OldValues { get; } = new();
+        public Dictionary<string, object> NewValues { get; } = new();
+        public List<PropertyEntry> TemporaryProperties { get; } = new();
 
         public bool HasTemporaryProperties => TemporaryProperties.Any();
 

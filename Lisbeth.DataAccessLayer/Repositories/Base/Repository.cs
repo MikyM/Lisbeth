@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using Lisbeth.DataAccessLayer.Helpers;
 using Lisbeth.DataAccessLayer.Interfaces.Repositories.Base;
 using Lisbeth.Domain.Entities.Base;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Lisbeth.DataAccessLayer.Repositories.Base
 {
@@ -51,8 +54,20 @@ namespace Lisbeth.DataAccessLayer.Repositories.Base
             _context.Set<TEntity>().Remove(entity);
         }
 
+        public void Delete(long id)
+        {
+            var entity = _context.FindTracked<TEntity>(id) ?? (TEntity) Activator.CreateInstance(typeof(TEntity), id);
+            _context.Set<TEntity>().Remove(entity);
+        }
+
         public void DeleteRange(IEnumerable<TEntity> entities)
         {
+            _context.Set<TEntity>().RemoveRange(entities);
+        }
+
+        public void DeleteRange(IEnumerable<long> ids)
+        {
+            var entities = ids.Select(id => _context.FindTracked<TEntity>(id) ?? (TEntity) Activator.CreateInstance(typeof(TEntity), id)).ToList();
             _context.Set<TEntity>().RemoveRange(entities);
         }
     }

@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using Lisbeth.DataAccessLayer.Interfaces.Specifications.Base;
+﻿using Lisbeth.DataAccessLayer.Interfaces.Specifications.Base;
 using Lisbeth.Domain.Entities.Base;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Lisbeth.DataAccessLayer.Specifications.Base
 {
@@ -23,8 +23,7 @@ namespace Lisbeth.DataAccessLayer.Specifications.Base
             }
 
             // Includes
-            query = specifications.Includes
-                .Aggregate(query, (current, include) => current.Include(include));
+            query = specifications.Includes.Aggregate(query, (current, include) => current.Include(include));
 
             // Apply ordering
             if (specifications.OrderBy != null)

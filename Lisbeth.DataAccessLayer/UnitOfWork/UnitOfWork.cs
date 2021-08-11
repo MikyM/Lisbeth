@@ -25,8 +25,7 @@ namespace Lisbeth.DataAccessLayer.UnitOfWork
             _transaction ??= await Context.Database.BeginTransactionAsync();
         }
 
-        public TRepository GetRepository<TEntity, TRepository>()
-            where TEntity : Entity
+        public TRepository GetRepository<TEntity, TRepository>() where TEntity : Entity
             where TRepository : ReadOnlyRepository<TEntity>
         {
             return (TRepository) GetOrAddRepository(typeof(TRepository));
@@ -36,38 +35,36 @@ namespace Lisbeth.DataAccessLayer.UnitOfWork
         {
             _repositories ??= new();
             string name = type.FullName;
-            if (_repositories.TryGetValue(name, out var repository))
-                return repository;
+            if (_repositories.TryGetValue(name, out var repository)) return repository;
 
-            var concrete = UoFCache.CachedTypes.FirstOrDefault(x => type.IsAssignableFrom(x) && !x.IsAbstract && !x.IsInterface);
+            var concrete =
+                UoFCache.CachedTypes.FirstOrDefault(x => type.IsAssignableFrom(x) && !x.IsAbstract && !x.IsInterface);
             if (concrete is not null)
             {
                 string concreteName = concrete.FullName;
-                if (_repositories.TryGetValue(concreteName, out var concreteRepo))
-                    return concreteRepo;
+                if (_repositories.TryGetValue(concreteName, out var concreteRepo)) return concreteRepo;
                 var concreteArgs = new object[] {Context};
                 if (_repositories.TryAdd(concreteName, Activator.CreateInstance(concrete, concreteArgs)))
                     return _repositories[concreteName];
-                throw new ArgumentException($"Concrete repository of type {concreteName} couldn't be added to and/or retrieved from cache.");
+                throw new ArgumentException(
+                    $"Concrete repository of type {concreteName} couldn't be added to and/or retrieved from cache.");
             }
 
             var args = new object[] {Context};
-            if (_repositories.TryAdd(name, Activator.CreateInstance(type, args)))
-                return _repositories[name];
-            throw new ArgumentException($"Concrete repository of type {name} couldn't be added to and/or retrieved from cache.");
+            if (_repositories.TryAdd(name, Activator.CreateInstance(type, args))) return _repositories[name];
+            throw new ArgumentException(
+                $"Concrete repository of type {name} couldn't be added to and/or retrieved from cache.");
         }
 
         public async Task RollbackAsync()
         {
-            if (_transaction is not null)
-                await _transaction.RollbackAsync();
+            if (_transaction is not null) await _transaction.RollbackAsync();
         }
 
         public async Task<int> CommitAsync()
         {
             int result = await Context.SaveChangesAsync();
-            if (_transaction is not null)
-                await _transaction.CommitAsync();
+            if (_transaction is not null) await _transaction.CommitAsync();
             return result;
         }
 

@@ -7,11 +7,10 @@ namespace Lisbeth.DataAccessLayer.Helpers
 {
     public static class UoFCache
     {
-        public static List<Type> CachedTypes { get; } = AppDomain.CurrentDomain
-            .GetAssemblies()
+        public static List<Type> CachedTypes { get; } = AppDomain.CurrentDomain.GetAssemblies()
             .SelectMany(x => x.GetTypes()
-                    .Where(t => t.BaseType == typeof(Repository<>)
-                                || t.BaseType == typeof(ReadOnlyRepository<>)
-                                || t == typeof(ReadOnlyRepository<>))).ToList();
+                .Where(t => t.BaseType == typeof(Repository<>) || t.BaseType == typeof(ReadOnlyRepository<>) ||
+                            t == typeof(ReadOnlyRepository<>)))
+            .ToList();
     }
 }

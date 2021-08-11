@@ -58,7 +58,7 @@ namespace Lisbeth.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] TestDto dto)
         {
-            var res = await _service.Add(dto, true);
+            var res = await _service.AddAsync(dto, true);
 
             return res is -1
                 ? BadRequest()
@@ -68,7 +68,7 @@ namespace Lisbeth.API.Controllers
         [HttpPut]
         public async Task<IActionResult> Put([FromBody] TestDto dto)
         {
-            var res = await _service.AddOrUpdate(dto, true);
+            var res = await _service.AddOrUpdateAsync(dto, true);
 
             return res is -1
                 ? BadRequest()
@@ -80,7 +80,7 @@ namespace Lisbeth.API.Controllers
         [HttpPatch]
         public async Task<IActionResult> Patch([FromBody] TestDto dto)
         {
-            var res = await _service.Update(dto, true);
+            var res = await _service.UpdateAsync(dto, true);
 
             return res is false
                 ? BadRequest()
@@ -90,7 +90,7 @@ namespace Lisbeth.API.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete(long id)
         {
-            var res = await _service.Delete(id, true);
+            var res = await _service.DeleteAsync(id, true);
 
             return res is false
                 ? BadRequest()

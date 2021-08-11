@@ -1,5 +1,5 @@
-﻿using System;
-using Lisbeth.DataAccessLayer.Filters;
+﻿using Lisbeth.DataAccessLayer.Filters;
+using System;
 
 namespace Lisbeth.API.Application.Interfaces
 {

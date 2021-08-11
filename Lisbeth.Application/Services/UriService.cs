@@ -1,7 +1,7 @@
-﻿using System;
-using Lisbeth.API.Application.Interfaces;
+﻿using Lisbeth.API.Application.Interfaces;
 using Lisbeth.DataAccessLayer.Filters;
 using Microsoft.AspNetCore.WebUtilities;
+using System;
 
 namespace Lisbeth.API.Application.Services
 {
@@ -13,10 +13,12 @@ namespace Lisbeth.API.Application.Services
         {
             _baseUri = baseUri;
         }
+
         public Uri GetPageUri(PaginationFilter filter, string route)
         {
-            Uri endpointUri = new (string.Concat(_baseUri, route));
-            string modifiedUri = QueryHelpers.AddQueryString(endpointUri.ToString(), "pageNumber", filter.PageNumber.ToString());
+            Uri endpointUri = new(string.Concat(_baseUri, route));
+            string modifiedUri =
+                QueryHelpers.AddQueryString(endpointUri.ToString(), "pageNumber", filter.PageNumber.ToString());
             modifiedUri = QueryHelpers.AddQueryString(modifiedUri, "pageSize", filter.PageSize.ToString());
             return new Uri(modifiedUri);
         }

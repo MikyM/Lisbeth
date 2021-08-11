@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Lisbeth.DataAccessLayer.Repositories.Base;
 using Lisbeth.DataAccessLayer.UnitOfWork;
 using Lisbeth.Domain.DTOs.Base;
 using Lisbeth.Domain.Entities.Base;
 using Lisbeth.Shared.Application.Interfaces.Base;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Lisbeth.Shared.Application.Services.Base
 {
@@ -17,7 +17,7 @@ namespace Lisbeth.Shared.Application.Services.Base
         {
         }
 
-        public async Task<long> Add(TDto dto, bool shouldSave = false)
+        public async Task<long> AddAsync(TDto dto, bool shouldSave = false)
         {
             var entity = _mapper.Map<TEntity>(dto);
             try
@@ -37,27 +37,18 @@ namespace Lisbeth.Shared.Application.Services.Base
             return entity.Id;
         }
 
-        public async Task<long> Add<TPostDto>(TPostDto dto, bool shouldSave = false) where TPostDto : IRequestDto
+        public async Task<long> AddAsync<TPostDto>(TPostDto dto, bool shouldSave = false) where TPostDto : IRequestDto
         {
             var entity = _mapper.Map<TEntity>(dto);
-            try
-            {
-                await _unitOfWork.GetRepository<TEntity, Repository<TEntity>>().AddAsync(entity);
-
-                if (shouldSave)
-                    await CommitAsync();
-                else
-                    return 0;
-            }
-            catch (Exception ex)
-            {
-                return -1;
-            }
-
+            await _unitOfWork.GetRepository<TEntity, Repository<TEntity>>().AddAsync(entity);
+            if (shouldSave)
+                await CommitAsync();
+            else
+                return 0;
             return entity.Id;
         }
 
-        public async Task<bool> Update<TPatchDto>(TPatchDto dto, bool shouldSave = false) where TPatchDto : IRequestDto
+        public async Task<bool> UpdateAsync<TPatchDto>(TPatchDto dto, bool shouldSave = false) where TPatchDto : IRequestDto
         {
             _unitOfWork.GetRepository<TEntity, Repository<TEntity>>().Update(_mapper.Map<TEntity>(dto));
             if (shouldSave)
@@ -67,7 +58,7 @@ namespace Lisbeth.Shared.Application.Services.Base
         }
         
 
-        public async Task<bool> Update(TDto dto, bool shouldSave = false)
+        public async Task<bool> UpdateAsync(TDto dto, bool shouldSave = false)
         {
             _unitOfWork.GetRepository<TEntity, Repository<TEntity>>().Update(_mapper.Map<TEntity>(dto));
             if (shouldSave)
@@ -76,7 +67,7 @@ namespace Lisbeth.Shared.Application.Services.Base
             //to do
         }
 
-        public async Task<bool> UpdateRange(IEnumerable<TDto> dto, bool shouldSave = false)
+        public async Task<bool> UpdateRangeAsync(IEnumerable<TDto> dto, bool shouldSave = false)
         {
             _unitOfWork.GetRepository<TEntity, Repository<TEntity>>().UpdateRange(_mapper.Map<IEnumerable<TEntity>>(dto));
             if (shouldSave)
@@ -85,7 +76,7 @@ namespace Lisbeth.Shared.Application.Services.Base
             //to do
         }
 
-        public async Task<bool> UpdateRange<TPatchDto>(IEnumerable<TPatchDto> dto, bool shouldSave = false) where TPatchDto : IRequestDto
+        public async Task<bool> UpdateRangeAsync<TPatchDto>(IEnumerable<TPatchDto> dto, bool shouldSave = false) where TPatchDto : IRequestDto
         {
             _unitOfWork.GetRepository<TEntity, Repository<TEntity>>().UpdateRange(_mapper.Map<IEnumerable<TEntity>>(dto));
             if (shouldSave)
@@ -94,205 +85,122 @@ namespace Lisbeth.Shared.Application.Services.Base
             //to do
         }
 
-        public async Task<long> AddOrUpdate(TDto dto, bool shouldSave = false)
+        public async Task<long> AddOrUpdateAsync(TDto dto, bool shouldSave = false)
         {
             var entity = _mapper.Map<TEntity>(dto);
-            try
-            {
-                _unitOfWork.GetRepository<TEntity, Repository<TEntity>>().AddOrUpdate(entity);
-                if (shouldSave)
-                    await CommitAsync();
-                else
-                    return 0;
-            }
-            catch (Exception ex)
-            {
-                return -1;
-            }
-
+            _unitOfWork.GetRepository<TEntity, Repository<TEntity>>().AddOrUpdate(entity);
+            if (shouldSave)
+                await CommitAsync();
+            else
+                return 0;
             return entity.Id;
         }
 
-        public async Task<long> AddOrUpdate<TPutDto>(TPutDto dto, bool shouldSave = false) where TPutDto : IRequestDto
+        public async Task<long> AddOrUpdateAsync<TPutDto>(TPutDto dto, bool shouldSave = false) where TPutDto : IRequestDto
         {
             var entity = _mapper.Map<TEntity>(dto);
-            try
-            {
-                _unitOfWork.GetRepository<TEntity, Repository<TEntity>>().AddOrUpdate(entity);
-
-                if (shouldSave)
-                    await CommitAsync();
-                else
-                    return 0;
-            }
-            catch (Exception ex)
-            {
-                return -1;
-            }
-
+            _unitOfWork.GetRepository<TEntity, Repository<TEntity>>().AddOrUpdate(entity);
+            if (shouldSave)
+                await CommitAsync();
+            else
+                return 0;
             return entity.Id;
         }
 
-        public async Task<List<long>> AddOrUpdateRange(IEnumerable<TDto> dtos, bool shouldSave = false)
+        public async Task<List<long>> AddOrUpdateRangeAsync(IEnumerable<TDto> dtos, bool shouldSave = false)
         {
             var entities = _mapper.Map<IEnumerable<TEntity>>(dtos).ToList();
-            try
-            {
                 _unitOfWork.GetRepository<TEntity, Repository<TEntity>>().AddOrUpdateRange(entities);
-
-                if (shouldSave)
-                    await CommitAsync();
-                else
-                    return new List<long>();
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-
+            if (shouldSave)
+                await CommitAsync();
+            else
+                return new List<long>();
             return entities.Select(x => x.Id).ToList();
         }
 
-        public async Task<List<long>> AddOrUpdateRange<TPutDto>(IEnumerable<TPutDto> dtos, bool shouldSave = false) where TPutDto : IRequestDto
+        public async Task<List<long>> AddOrUpdateRangeAsync<TPutDto>(IEnumerable<TPutDto> dtos, bool shouldSave = false) where TPutDto : IRequestDto
         {
             var entities = _mapper.Map<IEnumerable<TEntity>>(dtos).ToList();
-            try
-            {
-                _unitOfWork.GetRepository<TEntity, Repository<TEntity>>().AddOrUpdateRange(entities);
+            _unitOfWork.GetRepository<TEntity, Repository<TEntity>>().AddOrUpdateRange(entities);
 
-                if (shouldSave)
-                    await CommitAsync();
-                else
-                    return new List<long>();
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-
+            if (shouldSave)
+                await CommitAsync();
+            else
+                return new List<long>();
             return entities.Select(x => x.Id).ToList();
         }
 
-        public async Task<bool> Delete(TDto dto, bool shouldSave = false)
+        public async Task<bool> DeleteAsync(TDto dto, bool shouldSave = false)
         {
-            try
-            {
-                _unitOfWork.GetRepository<TEntity, Repository<TEntity>>().Delete(_mapper.Map<TEntity>(dto));
+            _unitOfWork.GetRepository<TEntity, Repository<TEntity>>().Delete(_mapper.Map<TEntity>(dto));
 
-                if (shouldSave)
-                    await CommitAsync();
-                else
-                    return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public async Task<bool> Delete<TDeleteDto>(TDeleteDto dto, bool shouldSave = false) where TDeleteDto : IRequestDto
-        {
-            try
-            {
-                _unitOfWork.GetRepository<TEntity, Repository<TEntity>>().Delete(_mapper.Map<TEntity>(dto));
-
-                if (shouldSave)
-                    await CommitAsync();
-                else
-                    return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public async Task<bool> Delete(long id, bool shouldSave = false)
-        {
-            try
-            {
-                var entity = (TEntity) Activator.CreateInstance(typeof(TEntity), id);
-                //_unitOfWork.Context.Attach(entity);
-                _unitOfWork.GetRepository<TEntity, Repository<TEntity>>().Delete(entity);
-
-                if (shouldSave)
-                    await CommitAsync();
-                else
-                    return false;
-            }
-            catch (Exception ex)
-            {
+            if (shouldSave)
+                await CommitAsync();
+            else
                 return true;
-            }
-
             return true;
+            //to do
         }
 
-        public async Task<bool> DeleteRange(IEnumerable<long> ids, bool shouldSave = false)
+        public async Task<bool> DeleteAsync<TDeleteDto>(TDeleteDto dto, bool shouldSave = false) where TDeleteDto : IRequestDto
         {
-            try
-            {
-                List<TEntity> entities = new();
-                foreach (long id in ids)
-                {
-                    var entity = (TEntity) Activator.CreateInstance(typeof(TEntity));
-                    entities.Add(entity);
-                }
-                _unitOfWork.GetRepository<TEntity, Repository<TEntity>>().DeleteRange(entities);
+            _unitOfWork.GetRepository<TEntity, Repository<TEntity>>().Delete(_mapper.Map<TEntity>(dto));
 
-                if (shouldSave)
-                    await CommitAsync();
-                else
-                    return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-
+            if (shouldSave)
+                await CommitAsync();
+            else
+                return true;
             return true;
+            //to do
         }
 
-        public async Task<bool> DeleteRange<TDeleteDto>(IEnumerable<TDeleteDto> dtos, bool shouldSave = false) where TDeleteDto : IRequestDto
+        public async Task<bool> DeleteAsync(long id, bool shouldSave = false)
         {
-            try
-            {
-                _unitOfWork.GetRepository<TEntity, Repository<TEntity>>().DeleteRange(_mapper.Map<IEnumerable<TEntity>>(dtos));
-
-                if (shouldSave)
-                    await CommitAsync();
-                else
-                    return true;
-            }
-            catch (Exception ex)
-            {
+            _unitOfWork.GetRepository<TEntity, Repository<TEntity>>().Delete(id);
+            if (shouldSave)
+                await CommitAsync();
+            else
                 return false;
-            }
-
             return true;
+            //to do
         }
 
-        public async Task<bool> DeleteRange(IEnumerable<TDto> dtos, bool shouldSave = false)
+        public async Task<bool> DeleteRangeAsync(IEnumerable<long> ids, bool shouldSave = false)
         {
-            try
-            {
-                _unitOfWork.GetRepository<TEntity, Repository<TEntity>>().DeleteRange(_mapper.Map<IEnumerable<TEntity>>(dtos));
+            _unitOfWork.GetRepository<TEntity, Repository<TEntity>>().DeleteRange(ids);
 
-                if (shouldSave)
-                    await CommitAsync();
-                else
-                    return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-
+            if (shouldSave)
+                await CommitAsync();
+            else
+                return true;
             return true;
+            //to do
+        }
+
+        public async Task<bool> DeleteRangeAsync<TDeleteDto>(IEnumerable<TDeleteDto> dtos, bool shouldSave = false) where TDeleteDto : IRequestDto
+        {
+            _unitOfWork.GetRepository<TEntity, Repository<TEntity>>()
+                .DeleteRange(_mapper.Map<IEnumerable<TEntity>>(dtos));
+
+            if (shouldSave)
+                await CommitAsync();
+            else
+                return true;
+            return true;
+            //to do
+        }
+
+        public async Task<bool> DeleteRangeAsync(IEnumerable<TDto> dtos, bool shouldSave = false)
+        {
+            _unitOfWork.GetRepository<TEntity, Repository<TEntity>>()
+                .DeleteRange(_mapper.Map<IEnumerable<TEntity>>(dtos));
+
+            if (shouldSave)
+                await CommitAsync();
+            else
+                return true;
+            return true;
+            //to do
         }
     }
 }

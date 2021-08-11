@@ -9,8 +9,7 @@ namespace Lisbeth.DataAccessLayer.UnitOfWork
     {
         Microsoft.EntityFrameworkCore.DbContext Context { get; }
 
-        public TRepository GetRepository<TEntity, TRepository>()
-            where TEntity : Entity
+        public TRepository GetRepository<TEntity, TRepository>() where TEntity : Entity
             where TRepository : ReadOnlyRepository<TEntity>;
 
         Task<int> CommitAsync();

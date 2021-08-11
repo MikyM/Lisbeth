@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Lisbeth.DataAccessLayer.UnitOfWork;
 using Lisbeth.Shared.Application.Interfaces.Base;
+using System;
+using System.Threading.Tasks;
 
 namespace Lisbeth.Shared.Application.Services.Base
 {

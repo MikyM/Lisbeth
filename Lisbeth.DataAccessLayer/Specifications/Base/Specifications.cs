@@ -1,16 +1,15 @@
-﻿// Generic Specifications , can be easily used for filter expressions
-// For additional expressions, class needs to be derived.
-
+﻿using Lisbeth.DataAccessLayer.Interfaces.Specifications.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using Lisbeth.DataAccessLayer.Interfaces.Specifications.Base;
 
 namespace Lisbeth.DataAccessLayer.Specifications.Base
 {
     public class Specifications<T> : ISpecifications<T>
     {
-        public Specifications() { }
+        public Specifications()
+        {
+        }
 
         public Specifications(Expression<Func<T, bool>> filterCondition)
         {

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-using Lisbeth.DataAccessLayer.Filters;
+﻿using Lisbeth.DataAccessLayer.Filters;
 using Lisbeth.DataAccessLayer.Interfaces.Specifications.Base;
 using Lisbeth.Domain.DTOs.Base;
 using Lisbeth.Domain.Entities.Base;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Lisbeth.Shared.Application.Interfaces.Base
 {

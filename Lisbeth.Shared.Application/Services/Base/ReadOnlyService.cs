@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Lisbeth.DataAccessLayer.Filters;
 using Lisbeth.DataAccessLayer.Interfaces.Specifications.Base;
 using Lisbeth.DataAccessLayer.Repositories.Base;
@@ -10,6 +6,8 @@ using Lisbeth.DataAccessLayer.UnitOfWork;
 using Lisbeth.Domain.DTOs.Base;
 using Lisbeth.Domain.Entities.Base;
 using Lisbeth.Shared.Application.Interfaces.Base;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Lisbeth.Shared.Application.Services.Base
 {
