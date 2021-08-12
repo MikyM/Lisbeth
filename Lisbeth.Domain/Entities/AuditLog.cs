@@ -1,5 +1,4 @@
-﻿using System;
-using Lisbeth.Domain.Entities.Base;
+﻿using Lisbeth.Domain.Entities.Base;
 
 namespace Lisbeth.Domain.Entities
 {
