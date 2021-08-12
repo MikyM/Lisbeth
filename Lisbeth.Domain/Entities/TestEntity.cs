@@ -2,7 +2,7 @@
 
 namespace Lisbeth.Domain.Entities
 {
-    public class TestEntity : Entity
+    public class TestEntity : RepositoryEntity
     {
         public string Name { get; set; }
     }

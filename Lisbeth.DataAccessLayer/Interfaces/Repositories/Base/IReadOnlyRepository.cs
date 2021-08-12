@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lisbeth.DataAccessLayer.Interfaces.Repositories.Base
 {
-    public interface IReadOnlyRepository<TEntity> where TEntity : Entity
+    public interface IReadOnlyRepository<TEntity> where TEntity : RepositoryEntity
     {
         Task<TEntity> GetAsync(params object[] keyValues);
         Task<IReadOnlyList<TEntity>> GetWithRawSqlAsync(string query, params object[] parameters);

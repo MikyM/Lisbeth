@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Lisbeth.DataAccessLayer.Repositories.Base
 {
-    public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TEntity : Entity
+    public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TEntity : RepositoryEntity
     {
         protected Microsoft.EntityFrameworkCore.DbContext _context;
 

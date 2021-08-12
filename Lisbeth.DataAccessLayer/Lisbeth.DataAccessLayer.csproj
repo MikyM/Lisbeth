@@ -14,4 +14,9 @@
     <ProjectReference Include="..\Lisbeth.Domain\Lisbeth.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Repositories\AggregateRootRepositories\" />
+    <Folder Include="Repositories\EnvironmentSpecificEntityRepositories\" />
+  </ItemGroup>
+
 </Project>

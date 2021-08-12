@@ -23,6 +23,12 @@ namespace Lisbeth.DataAccessLayer.DbContext
         public DbSet<TestEntity> TestEntities { get; set; }
         public DbSet<AuditLog> AuditLogs { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // fluent api to do
+            base.OnModelCreating(modelBuilder);
+        }
+
         private static void OnEntityStateChanged(object? sender, EntityStateChangedEventArgs e)
         {
             if (e.NewState is EntityState.Modified && e.Entry.Entity is Entity)

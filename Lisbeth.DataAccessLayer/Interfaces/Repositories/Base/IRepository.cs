@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Lisbeth.DataAccessLayer.Interfaces.Repositories.Base
 {
-    public interface IRepository<TEntity> : IReadOnlyRepository<TEntity> where TEntity : Entity
+    public interface IRepository<TEntity> : IReadOnlyRepository<TEntity> where TEntity : RepositoryEntity
     {
         Task AddAsync(TEntity entity);
         Task AddRangeAsync(IEnumerable<TEntity> entities);

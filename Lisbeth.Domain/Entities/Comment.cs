@@ -1,5 +1,6 @@
 ﻿using Lisbeth.Domain.Entities.Base;
 using System.Collections.Generic;
+using Lisbeth.Domain.Entities.AggregateRootEntities;
 
 namespace Lisbeth.Domain.Entities
 {
