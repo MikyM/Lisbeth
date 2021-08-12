@@ -17,7 +17,7 @@ namespace Lisbeth.Domain.Entities.AggregateRootEntities
         public List<Comment> Comments { get; set; }
         public User AssignedTo { get; set; }
         public User CreatedBy { get; set; }
-        public long? ProjectId { get; set; }
+        public long ProjectId { get; set; }
         public Project Project { get; set; }
     }
 }
