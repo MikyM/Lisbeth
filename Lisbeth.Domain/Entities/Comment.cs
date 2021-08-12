@@ -8,7 +8,9 @@ namespace Lisbeth.Domain.Entities
         public string Content { get; set; }
         public List<Attachment> Attachments { get; set; }
         public User CreatedBy { get; set; }
+        public long? TicketId { get; set; }
         public Ticket Ticket { get; set; }
+        public long? BugId { get; set; }
         public Bug Bug { get; set; }
     }
 }

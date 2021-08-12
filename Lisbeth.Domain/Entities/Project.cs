@@ -8,6 +8,7 @@ namespace Lisbeth.Domain.Entities
         public string Name { get; set; }
         public List<Ticket> Tickets { get; set; }
         public List<Bug> Bugs { get; set; }
+        public long? EnvironmentId { get; set; }
         public Environment Environment { get; set; }
     }
 }
