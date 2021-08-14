@@ -2,17 +2,15 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Lisbeth.API.Application.Interfaces;
+using Lisbeth.API.Application.Services;
+using Lisbeth.API.Domain.DTOs;
+using Lisbeth.API.Domain.Entities;
 using Lisbeth.API.Helpers;
 using Lisbeth.API.Models;
-using Lisbeth.DataAccessLayer.Filters;
-using Lisbeth.DataAccessLayer.Specifications.Base;
-using Lisbeth.Domain.DTOs;
-using Lisbeth.Domain.Entities;
-using Lisbeth.Shared.Application.Interfaces.Base;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Org.BouncyCastle.Math.EC;
-using Org.BouncyCastle.Ocsp;
+using MikyM.Common.DataAccessLayer.Filters;
+using MikyM.Common.DataAccessLayer.Specifications;
 
 namespace Lisbeth.API.Controllers
 {
@@ -21,11 +19,11 @@ namespace Lisbeth.API.Controllers
     public class TestController : ControllerBase
     {
         private readonly ILogger<TestController> _logger;
-        private readonly ICrudService<TestEntity,TestDto> _service;
+        private readonly ITestEntityService _service;
         private readonly IMapper _mapper;
         private readonly IUriService _uri;
 
-        public TestController(ILogger<TestController> logger, ICrudService<TestEntity, TestDto> service, IMapper mapper, IUriService uri)
+        public TestController(ILogger<TestController> logger, ITestEntityService service, IMapper mapper, IUriService uri)
         {
             _logger = logger;
             _service = service;

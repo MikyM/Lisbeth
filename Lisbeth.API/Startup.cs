@@ -1,19 +1,16 @@
-using System;
+using Autofac;
+using Lisbeth.API.DataAccessLayer.DbContext;
+using Lisbeth.API.ExceptionMiddleware;
+using Lisbeth.API.Modules;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
-using Lisbeth.API.ExceptionMiddleware;
-using Lisbeth.API.Modules;
-using Lisbeth.DataAccessLayer.DbContext;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
-namespace API
+namespace Lisbeth.API
 {
     public class Startup
     {

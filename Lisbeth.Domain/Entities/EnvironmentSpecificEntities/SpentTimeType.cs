@@ -1,8 +1,8 @@
-﻿using Lisbeth.Domain.Entities.Base;
+﻿using MikyM.Common.Domain.Entities;
 
-namespace Lisbeth.Domain.Entities.EnvironmentSpecificEntities
+namespace Lisbeth.API.Domain.Entities.EnvironmentSpecificEntities
 {
-    public class SpentTimeType : Entity
+    public class SpentTimeType : EnvironmentSpecificEntity
     {
         public string Name { get; set; }
     }

@@ -1,6 +1,6 @@
-﻿using Lisbeth.Domain.Entities.Base;
+﻿using MikyM.Common.Domain.Entities;
 
-namespace Lisbeth.Domain.Entities
+namespace Lisbeth.API.Domain.Entities
 {
     public class User : Entity
     {

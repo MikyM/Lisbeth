@@ -1,8 +1,8 @@
 ﻿using Lisbeth.API.Application.Interfaces;
 using Lisbeth.API.Models;
-using Lisbeth.DataAccessLayer.Filters;
 using System;
 using System.Collections.Generic;
+using MikyM.Common.DataAccessLayer.Filters;
 
 namespace Lisbeth.API.Helpers
 {

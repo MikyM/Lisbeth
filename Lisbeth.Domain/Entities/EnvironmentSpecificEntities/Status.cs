@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using Lisbeth.Domain.Entities.AggregateRootEntities;
-using Lisbeth.Domain.Entities.Base;
+using Lisbeth.API.Domain.Entities.AggregateRootEntities;
+using MikyM.Common.Domain.Entities;
 
-namespace Lisbeth.Domain.Entities.EnvironmentSpecificEntities
+namespace Lisbeth.API.Domain.Entities.EnvironmentSpecificEntities
 {
-    public class Status : RepositoryEntity, IEnvironmentSpecificEntity
+    public class Status : EnvironmentSpecificEntity
     {
         public string Name { get; set; }
         public long QueueId { get; set; }

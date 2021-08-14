@@ -1,4 +1,4 @@
-﻿namespace Lisbeth.Domain.Entities
+﻿namespace Lisbeth.API.Domain.Entities
 {
     public class TicketHistoryLog
     {

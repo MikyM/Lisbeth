@@ -1,8 +1,8 @@
-﻿using Lisbeth.Domain.Entities.Base;
+﻿using MikyM.Common.Domain.Entities;
 
-namespace Lisbeth.Domain.Entities
+namespace Lisbeth.API.Domain.Entities
 {
-    public class AuditLog : Entity
+    public class AuditLog : EnvironmentSpecificEntity
     {
         public string TableName { get; set; }
         public string KeyValues { get; set; }

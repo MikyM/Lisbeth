@@ -1,8 +1,8 @@
-﻿using Lisbeth.Domain.Entities.Base;
+﻿using Lisbeth.API.Domain.Entities.AggregateRootEntities;
+using MikyM.Common.Domain.Entities;
 using System.Collections.Generic;
-using Lisbeth.Domain.Entities.AggregateRootEntities;
 
-namespace Lisbeth.Domain.Entities
+namespace Lisbeth.API.Domain.Entities
 {
     public class Comment : Entity
     {

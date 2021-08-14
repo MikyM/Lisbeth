@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Lisbeth.Application\Lisbeth.API.Application.csproj" />
-    <ProjectReference Include="..\Lisbeth.Shared.Application\Lisbeth.Shared.Application.csproj" />
   </ItemGroup>
 
 </Project>

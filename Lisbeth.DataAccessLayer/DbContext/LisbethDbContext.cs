@@ -1,17 +1,17 @@
-﻿using Lisbeth.Domain.Entities;
-using Lisbeth.Domain.Entities.Base;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Lisbeth.API.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using MikyM.Common.Domain.Entities;
 
 #nullable enable
 
-namespace Lisbeth.DataAccessLayer.DbContext
+namespace Lisbeth.API.DataAccessLayer.DbContext
 {
     public sealed class LisbethDbContext : Microsoft.EntityFrameworkCore.DbContext
     {

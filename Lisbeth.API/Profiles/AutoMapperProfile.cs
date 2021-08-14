@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using Lisbeth.DataAccessLayer.Filters;
-using Lisbeth.Domain.DTOs;
-using Lisbeth.Domain.DTOs.Base;
-using Lisbeth.Domain.Entities;
+using Lisbeth.API.Domain.DTOs;
+using Lisbeth.API.Domain.Entities;
+using MikyM.Common.DataAccessLayer.Filters;
 
 namespace Lisbeth.API.Profiles
 {

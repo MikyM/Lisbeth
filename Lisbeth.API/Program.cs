@@ -1,12 +1,12 @@
 using System;
 using System.IO;
-using Serilog;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
 using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Serilog;
 
-namespace API
+namespace Lisbeth.API
 {
     public class Program
     {

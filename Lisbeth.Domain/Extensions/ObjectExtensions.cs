@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Lisbeth.Domain.Extensions.ArrayExtensions;
+using Lisbeth.API.Domain.Extensions.ArrayExtensions;
 
-namespace Lisbeth.Domain.Extensions
+namespace Lisbeth.API.Domain.Extensions
 {
     public static class ObjectExtensions
     {

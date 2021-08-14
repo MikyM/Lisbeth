@@ -1,30 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Lisbeth.API.Application.Interfaces;
+using Lisbeth.API.Domain.DTOs;
+using Lisbeth.API.Domain.Entities;
 using Lisbeth.API.Helpers;
 using Lisbeth.API.Models;
-using Lisbeth.DataAccessLayer.Filters;
-using Lisbeth.DataAccessLayer.Specifications.Base;
-using Lisbeth.Domain.DTOs;
-using Lisbeth.Domain.Entities;
-using Lisbeth.Shared.Application.Interfaces.Base;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MikyM.Common.DataAccessLayer.Filters;
+using MikyM.Common.DataAccessLayer.Specifications;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Lisbeth.API.Controllers
 {
     public class AuditLogController : ControllerBase
     {
         private readonly ILogger<AuditLogController> _logger;
-        private readonly IReadOnlyService<AuditLog, AuditLogDto> _service;
+        private readonly IAuditLogService _service;
         private readonly IMapper _mapper;
         private readonly IUriService _uri;
 
-        public AuditLogController(ILogger<AuditLogController> logger, IReadOnlyService<AuditLog, AuditLogDto> service, IMapper mapper, IUriService uri)
+        public AuditLogController(ILogger<AuditLogController> logger, IAuditLogService service, IMapper mapper, IUriService uri)
         {
             _logger = logger;
             _service = service;

@@ -1,8 +1,8 @@
-﻿using Lisbeth.Domain.Entities.Base;
-using System;
-using Lisbeth.Domain.Entities.AggregateRootEntities;
+﻿using System;
+using Lisbeth.API.Domain.Entities.AggregateRootEntities;
+using MikyM.Common.Domain.Entities;
 
-namespace Lisbeth.Domain.Entities
+namespace Lisbeth.API.Domain.Entities
 {
     public class Attachment : Entity
     {

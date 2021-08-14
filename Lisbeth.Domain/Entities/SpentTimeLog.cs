@@ -1,7 +1,7 @@
-﻿using Lisbeth.Domain.Entities.Base;
-using Lisbeth.Domain.Entities.EnvironmentSpecificEntities;
+﻿using Lisbeth.API.Domain.Entities.EnvironmentSpecificEntities;
+using MikyM.Common.Domain.Entities;
 
-namespace Lisbeth.Domain.Entities
+namespace Lisbeth.API.Domain.Entities
 {
     public class SpentTimeLog : Entity
     {

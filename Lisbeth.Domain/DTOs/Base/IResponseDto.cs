@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Lisbeth.Domain.DTOs.Base
+namespace Lisbeth.API.Domain.DTOs.Base
 {
     public interface IResponseDto : IDto
     {

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using Lisbeth.Domain.Entities.Base;
-using Lisbeth.Domain.Entities.EnvironmentSpecificEntities;
+using Lisbeth.API.Domain.Entities.EnvironmentSpecificEntities;
+using MikyM.Common.Domain.Entities;
 
-namespace Lisbeth.Domain.Entities.AggregateRootEntities
+namespace Lisbeth.API.Domain.Entities.AggregateRootEntities
 {
-    public class Bug : RepositoryEntity, IAggregateRootEntity
+    public class Bug : AggregateRootEntity
     {
         public string Name { get; set; }
         public string Message { get; set; }

@@ -1,8 +1,8 @@
-﻿using Lisbeth.Domain.Entities.Base;
+﻿using MikyM.Common.Domain.Entities;
 
-namespace Lisbeth.Domain.Entities
+namespace Lisbeth.API.Domain.Entities
 {
-    public class TestEntity : RepositoryEntity
+    public class TestEntity : AggregateRootEntity
     {
         public string Name { get; set; }
     }

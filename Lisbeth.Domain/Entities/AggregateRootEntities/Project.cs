@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Lisbeth.Domain.Entities.Base;
+using MikyM.Common.Domain.Entities;
 
-namespace Lisbeth.Domain.Entities.AggregateRootEntities
+namespace Lisbeth.API.Domain.Entities.AggregateRootEntities
 {
-    public class Project : RepositoryEntity, IAggregateRootEntity
+    public class Project : AggregateRootEntity
     {
         public string Name { get; set; }
         public List<Ticket> Tickets { get; set; }

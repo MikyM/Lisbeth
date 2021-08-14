@@ -1,7 +1,7 @@
 ﻿using System;
-using Lisbeth.Domain.DTOs.Base;
+using Lisbeth.API.Domain.DTOs.Base;
 
-namespace Lisbeth.Domain.DTOs
+namespace Lisbeth.API.Domain.DTOs
 {
     public class ResponseTestDto : TestDto, IResponseDto
     {
