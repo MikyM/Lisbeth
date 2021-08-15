@@ -1,15 +1,14 @@
-﻿using System.Reflection;
-using Autofac;
+﻿using Autofac;
 using AutoMapper.Contrib.Autofac.DependencyInjection;
 using AutoMapper.Extensions.ExpressionMapping;
 using Lisbeth.API.Application.Interfaces;
 using Lisbeth.API.Application.Services;
-using Lisbeth.API.DataAccessLayer.DbContext;
 using Lisbeth.API.DataAccessLayer.Repositories;
-using MikyM.Common.DataAccessLayer.Extensions;
 using Microsoft.AspNetCore.Http;
 using MikyM.Common.Application.Interfaces;
 using MikyM.Common.Application.Services;
+using MikyM.Common.DataAccessLayer.UnitOfWork;
+using System.Reflection;
 using Module = Autofac.Module;
 
 namespace Lisbeth.API.Modules
@@ -21,7 +20,7 @@ namespace Lisbeth.API.Modules
             base.Load(builder);
             // stuff
             builder.RegisterAutoMapper(opt => opt.AddExpressionMapping(), Assembly.GetExecutingAssembly());
-            builder.AddUnitOfWork<LisbethDbContext>();
+            builder.RegisterGeneric(typeof(UnitOfWork<>)).As(typeof(IUnitOfWork<>)).InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(ReadOnlyService<,,>)).As(typeof(IReadOnlyService<,>))
                 .InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(CrudService<,,>)).As(typeof(ICrudService<,>))
