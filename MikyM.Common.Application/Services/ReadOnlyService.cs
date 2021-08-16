@@ -22,7 +22,7 @@ namespace MikyM.Common.Application.Services
             return _mapper.Map<TResult>(await _unitOfWork.GetRepository<ReadOnlyRepository<TEntity>>().GetAsync(id));
         }
 
-        public virtual async Task<TGetResult> GetAsync<TGetResult>(long id) where TGetResult : AggregateRootEntity
+        public virtual async Task<TGetResult> GetAsync<TGetResult>(long id) where TGetResult : class
         {
             return _mapper.Map<TGetResult>(await _unitOfWork.GetRepository<ReadOnlyRepository<TEntity>>().GetAsync(id));
         }
@@ -35,7 +35,7 @@ namespace MikyM.Common.Application.Services
                     .GetBySpecificationsAsync(specifications));
         }
 
-        public virtual async Task<IReadOnlyList<TGetResult>> GetBySpecificationsAsync<TGetResult>(ISpecifications<TEntity> specifications = null) where TGetResult : AggregateRootEntity
+        public virtual async Task<IReadOnlyList<TGetResult>> GetBySpecificationsAsync<TGetResult>(ISpecifications<TEntity> specifications = null) where TGetResult : class
         {
             return _mapper.Map<IReadOnlyList<TGetResult>>(
                 await _unitOfWork
@@ -51,7 +51,7 @@ namespace MikyM.Common.Application.Services
                     .GetBySpecificationsAsync(_mapper.Map<PaginationFilter>(filter), specifications));
         }
 
-        public virtual async Task<IReadOnlyList<TGetResult>> GetBySpecificationsAsync<TGetResult>(PaginationFilterDto filter, ISpecifications<TEntity> specifications = null) where TGetResult : AggregateRootEntity
+        public virtual async Task<IReadOnlyList<TGetResult>> GetBySpecificationsAsync<TGetResult>(PaginationFilterDto filter, ISpecifications<TEntity> specifications = null) where TGetResult : class
         {
             return _mapper.Map<IReadOnlyList<TGetResult>>(
                 await _unitOfWork
@@ -70,7 +70,7 @@ namespace MikyM.Common.Application.Services
                 .CountWhereAsync(specifications);
         }
 
-        public virtual async Task<long> CountWhereAsync<TGetResult>(ISpecifications<TEntity> specifications = null) where TGetResult : AggregateRootEntity
+        public virtual async Task<long> CountWhereAsync<TGetResult>(ISpecifications<TEntity> specifications = null) where TGetResult : class
         {
             return await _unitOfWork.GetRepository<ReadOnlyRepository<TEntity>>()
                 .CountWhereAsync(specifications);

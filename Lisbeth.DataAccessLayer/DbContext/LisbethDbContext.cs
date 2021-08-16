@@ -5,9 +5,12 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Lisbeth.API.Domain.Entities;
+using Lisbeth.API.Domain.Entities.AggregateRootEntities;
+using Lisbeth.API.Domain.Entities.EnvironmentSpecificEntities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MikyM.Common.Domain.Entities;
+using Environment = Lisbeth.API.Domain.Entities.AggregateRootEntities.Environment;
 
 #nullable enable
 
@@ -22,6 +25,12 @@ namespace Lisbeth.API.DataAccessLayer.DbContext
 
         public DbSet<TestEntity> TestEntities { get; set; }
         public DbSet<AuditLog> AuditLogs { get; set; }
+        public DbSet<Environment> Environments { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<Queue> Queues { get; set; }
+        public DbSet<Tracker> Trackers { get; set; }
+        public DbSet<Bug> Bugs { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

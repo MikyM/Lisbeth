@@ -3,7 +3,7 @@ using Lisbeth.API.Domain.DTOs.Base;
 
 namespace Lisbeth.API.Domain.DTOs
 {
-    public class AuditLogDto : IResponseDto
+    public class AuditLogDto : Dto
     {
         public long Id { get; }
         public string TableName { get; set; }

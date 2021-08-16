@@ -2,7 +2,7 @@
 
 namespace Lisbeth.API.Domain.DTOs
 {
-    public class TestDto : IDto
+    public class TestDto : Dto
     {
         public string Name { get; set; }
     }

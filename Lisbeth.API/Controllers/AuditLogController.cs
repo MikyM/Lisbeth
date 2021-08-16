@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 
 namespace Lisbeth.API.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class AuditLogController : ControllerBase
     {
         private readonly ILogger<AuditLogController> _logger;

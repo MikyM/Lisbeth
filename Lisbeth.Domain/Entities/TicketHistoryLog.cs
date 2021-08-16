@@ -2,6 +2,6 @@
 {
     public class TicketHistoryLog
     {
-        
+        public long Id { get; set; }
     }
 }
