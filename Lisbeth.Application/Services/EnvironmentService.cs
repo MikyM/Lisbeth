@@ -8,7 +8,7 @@ using MikyM.Common.DataAccessLayer.UnitOfWork;
 
 namespace Lisbeth.API.Application.Services
 {
-    public class EnvironmentService : CrudService<Environment, EnvironmentDto, LisbethDbContext>, IEnvironmentService
+    public class EnvironmentService : CrudService<Environment, LisbethDbContext>, IEnvironmentService
     {
         public EnvironmentService(IMapper mapper, IUnitOfWork<LisbethDbContext> ctx) : base(mapper, ctx)
         {

@@ -14,7 +14,7 @@ using MikyM.Common.DataAccessLayer.UnitOfWork;
 
 namespace Lisbeth.API.Application.Services
 {
-    public class AuditLogService : ReadOnlyService<AuditLog, AuditLogDto, LisbethDbContext>, IAuditLogService
+    public class AuditLogService : ReadOnlyService<AuditLog, LisbethDbContext>, IAuditLogService
     {
         public AuditLogService(IMapper mapper, IUnitOfWork<LisbethDbContext> uof) : base(mapper, uof)
         {

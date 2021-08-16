@@ -4,7 +4,7 @@ using MikyM.Common.Application.Interfaces;
 
 namespace Lisbeth.API.Application.Interfaces
 {
-    public interface ITestEntityService : ICrudService<TestEntity, TestDto>
+    public interface ITestEntityService : ICrudService<TestEntity>
     {
         
     }

@@ -11,15 +11,11 @@ using System.Threading.Tasks;
 
 namespace MikyM.Common.Application.Services
 {
-    public class ReadOnlyService<TEntity, TResult, TContext> : ServiceBase<TContext>, IReadOnlyService<TEntity, TResult> where TEntity : AggregateRootEntity where TResult : class where TContext : DbContext
+    public class ReadOnlyService<TEntity, TContext> : ServiceBase<TContext>, IReadOnlyService<TEntity>
+        where TEntity : AggregateRootEntity where TContext : DbContext
     {
         public ReadOnlyService(IMapper mapper, IUnitOfWork<TContext> uof) : base(mapper, uof)
         {
-        }
-
-        public virtual async Task<TResult> GetAsync(long id)
-        {
-            return _mapper.Map<TResult>(await _unitOfWork.GetRepository<ReadOnlyRepository<TEntity>>().GetAsync(id));
         }
 
         public virtual async Task<TGetResult> GetAsync<TGetResult>(long id) where TGetResult : class
@@ -27,36 +23,18 @@ namespace MikyM.Common.Application.Services
             return _mapper.Map<TGetResult>(await _unitOfWork.GetRepository<ReadOnlyRepository<TEntity>>().GetAsync(id));
         }
 
-        public virtual async Task<IReadOnlyList<TResult>> GetBySpecificationsAsync(ISpecifications<TEntity> specifications = null)
+        public virtual async Task<IReadOnlyList<TGetResult>> GetBySpecificationsAsync<TGetResult>(
+            ISpecifications<TEntity> specifications = null) where TGetResult : class
         {
-            return _mapper.Map<IReadOnlyList<TResult>>(
-                await _unitOfWork
-                    .GetRepository<ReadOnlyRepository<TEntity>>()
-                    .GetBySpecificationsAsync(specifications));
+            return _mapper.Map<IReadOnlyList<TGetResult>>(await _unitOfWork.GetRepository<ReadOnlyRepository<TEntity>>()
+                .GetBySpecificationsAsync(specifications));
         }
 
-        public virtual async Task<IReadOnlyList<TGetResult>> GetBySpecificationsAsync<TGetResult>(ISpecifications<TEntity> specifications = null) where TGetResult : class
+        public virtual async Task<IReadOnlyList<TGetResult>> GetBySpecificationsAsync<TGetResult>(
+            PaginationFilterDto filter, ISpecifications<TEntity> specifications = null) where TGetResult : class
         {
-            return _mapper.Map<IReadOnlyList<TGetResult>>(
-                await _unitOfWork
-                    .GetRepository<ReadOnlyRepository<TEntity>>()
-                    .GetBySpecificationsAsync(specifications));
-        }
-
-        public virtual async Task<IReadOnlyList<TResult>> GetBySpecificationsAsync(PaginationFilterDto filter, ISpecifications<TEntity> specifications = null)
-        {
-            return _mapper.Map<IReadOnlyList<TResult>>(
-                await _unitOfWork
-                    .GetRepository<ReadOnlyRepository<TEntity>>()
-                    .GetBySpecificationsAsync(_mapper.Map<PaginationFilter>(filter), specifications));
-        }
-
-        public virtual async Task<IReadOnlyList<TGetResult>> GetBySpecificationsAsync<TGetResult>(PaginationFilterDto filter, ISpecifications<TEntity> specifications = null) where TGetResult : class
-        {
-            return _mapper.Map<IReadOnlyList<TGetResult>>(
-                await _unitOfWork
-                    .GetRepository<ReadOnlyRepository<TEntity>>()
-                    .GetBySpecificationsAsync(_mapper.Map<PaginationFilter>(filter), specifications));
+            return _mapper.Map<IReadOnlyList<TGetResult>>(await _unitOfWork.GetRepository<ReadOnlyRepository<TEntity>>()
+                .GetBySpecificationsAsync(_mapper.Map<PaginationFilter>(filter), specifications));
         }
 
         public virtual async Task<long> CountAsync()
@@ -66,14 +44,13 @@ namespace MikyM.Common.Application.Services
 
         public virtual async Task<long> CountWhereAsync(ISpecifications<TEntity> specifications = null)
         {
-            return await _unitOfWork.GetRepository<ReadOnlyRepository<TEntity>>()
-                .CountWhereAsync(specifications);
+            return await _unitOfWork.GetRepository<ReadOnlyRepository<TEntity>>().CountWhereAsync(specifications);
         }
 
-        public virtual async Task<long> CountWhereAsync<TGetResult>(ISpecifications<TEntity> specifications = null) where TGetResult : class
+        public virtual async Task<long> CountWhereAsync<TGetResult>(ISpecifications<TEntity> specifications = null)
+            where TGetResult : class
         {
-            return await _unitOfWork.GetRepository<ReadOnlyRepository<TEntity>>()
-                .CountWhereAsync(specifications);
+            return await _unitOfWork.GetRepository<ReadOnlyRepository<TEntity>>().CountWhereAsync(specifications);
         }
     }
 }

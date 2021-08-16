@@ -24,9 +24,9 @@ namespace Lisbeth.API.Modules
             // unitofwork
             builder.RegisterGeneric(typeof(UnitOfWork<>)).As(typeof(IUnitOfWork<>)).InstancePerLifetimeScope();
             // generic services
-            builder.RegisterGeneric(typeof(ReadOnlyService<,,>)).As(typeof(IReadOnlyService<,>))
+            builder.RegisterGeneric(typeof(ReadOnlyService<,>)).As(typeof(IReadOnlyService<>))
                 .InstancePerLifetimeScope();
-            builder.RegisterGeneric(typeof(CrudService<,,>)).As(typeof(ICrudService<,>))
+            builder.RegisterGeneric(typeof(CrudService<,>)).As(typeof(ICrudService<>))
                 .InstancePerLifetimeScope();
             // generic repositories
             builder.RegisterGeneric(typeof(ReadOnlyRepository<>)).As(typeof(IReadOnlyRepository<>))

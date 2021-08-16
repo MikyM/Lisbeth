@@ -33,7 +33,7 @@ namespace Lisbeth.API.Controllers
         [HttpGet("by-id")]
         public async Task<IActionResult> GetAuditById(long id)
         {
-            var res = await _service.GetAsync(id);
+            var res = await _service.GetAsync<AuditLogDto>(id);
 
             return res is null
                 ? NotFound()
@@ -44,7 +44,7 @@ namespace Lisbeth.API.Controllers
         public async Task<IActionResult> GetAuditByTable([FromQuery] PaginationFilterDto filter, string name)
         {
             var spec = new Specifications<AuditLog>(x => x.TableName == name);
-            var res = await _service.GetBySpecificationsAsync(filter, spec);
+            var res = await _service.GetBySpecificationsAsync<AuditLogDto>(filter, spec);
 
             return res is null
                 ? NotFound()

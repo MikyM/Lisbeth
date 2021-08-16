@@ -8,7 +8,7 @@ using MikyM.Common.DataAccessLayer.UnitOfWork;
 
 namespace Lisbeth.API.Application.Services
 {
-    public class TestEntityService : CrudService<TestEntity, TestDto, LisbethDbContext>, ITestEntityService
+    public class TestEntityService : CrudService<TestEntity, LisbethDbContext>, ITestEntityService
     {
         public TestEntityService(IMapper mapper, IUnitOfWork<LisbethDbContext> uof) : base(mapper, uof)
         {

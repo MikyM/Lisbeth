@@ -1,8 +1,5 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Lisbeth.API.Application.Interfaces;
-using Lisbeth.API.Domain.DTOs;
 using Lisbeth.API.Domain.DTOs.RequestDtos;
 using Lisbeth.API.Domain.DTOs.ResponseDtos;
 using Lisbeth.API.Domain.Entities.AggregateRootEntities;
@@ -12,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MikyM.Common.DataAccessLayer.Filters;
 using MikyM.Common.DataAccessLayer.Specifications;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Lisbeth.API.Controllers
 {
@@ -46,7 +45,7 @@ namespace Lisbeth.API.Controllers
         public async Task<IActionResult> GetByNamePaginated([FromQuery] PaginationFilterDto filter, string name)
         {
             var spec = new Specifications<Environment>(x => x.Name == name);
-            var res = await _service.GetBySpecificationsAsync(filter, spec);
+            var res = await _service.GetBySpecificationsAsync<EnvironmentResDto>(filter, spec);
             if (res is null)
                 return NotFound();
             var ok = PaginationHelper.CreatePagedReponse(res.ToList(), _mapper.Map<PaginationFilter>(filter), await _service.CountWhereAsync(spec), _uri, Request.Path.Value);

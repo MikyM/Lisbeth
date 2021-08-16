@@ -4,7 +4,7 @@ using MikyM.Common.Application.Interfaces;
 
 namespace Lisbeth.API.Application.Interfaces
 {
-    public interface IAuditLogService : IReadOnlyService<AuditLog, AuditLogDto>
+    public interface IAuditLogService : IReadOnlyService<AuditLog>
     {
 
     }
