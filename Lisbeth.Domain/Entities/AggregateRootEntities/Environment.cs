@@ -10,6 +10,6 @@ namespace Lisbeth.API.Domain.Entities.AggregateRootEntities
         public List<Project> Projects { get; set; }
         public List<Queue> Queues { get; set; }
         public List<Tracker> Trackers { get; set; }
-        public User CreatedBy { get; set; }
+        public string OwnerId { get; set; }
     }
 }

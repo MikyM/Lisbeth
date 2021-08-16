@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MikyM.Common.DataAccessLayer.Specifications;
 
 namespace MikyM.Common.Application.Services
 {
@@ -201,6 +202,70 @@ namespace MikyM.Common.Application.Services
                 return true;
             return true;
             //to do
+        }
+
+        public virtual async Task<bool> DisableAsync(T objToDisable, bool shouldSave = false)
+        {
+            var entity = _mapper.Map<TEntity>(objToDisable);
+            entity.IsDisabled = true;
+            _unitOfWork.GetRepository<Repository<TEntity>>()
+                .Disable(entity);
+            if (shouldSave)
+                await CommitAsync();
+            else return true;
+            return true;
+        }
+
+        public virtual async Task<bool> DisableAsync(long id, bool shouldSave = false)
+        {
+            await _unitOfWork.GetRepository<Repository<TEntity>>()
+                .DisableAsync(id);
+            if (shouldSave)
+                await CommitAsync();
+            else return true;
+            return true;
+        }
+
+        public virtual async Task<bool> DisableAsync<TDisable>(TDisable objToDisable, bool shouldSave = false) where TDisable : AggregateRootEntity
+        {
+            _unitOfWork.GetRepository<Repository<TEntity>>()
+                .Disable(_mapper.Map<TEntity>(objToDisable));
+            if (shouldSave)
+                await CommitAsync();
+            else return true;
+            return true;
+        }
+
+        public virtual async Task<bool> DisableRangeAsync(IEnumerable<T> objsToDisable, bool shouldSave = false)
+        {
+            var aggregateRootEntities = _mapper.Map<IEnumerable<TEntity>>(objsToDisable);
+            _unitOfWork.GetRepository<Repository<TEntity>>()
+                .DisableRange(aggregateRootEntities);
+            if (shouldSave)
+                await CommitAsync();
+            else return true;
+            return true;
+        }
+
+        public virtual async Task<bool> DisableRangeAsync(IEnumerable<long> ids, bool shouldSave = false)
+        {
+            await _unitOfWork.GetRepository<Repository<TEntity>>()
+                .DisableRangeAsync(ids);
+            if (shouldSave)
+                await CommitAsync();
+            else return true;
+            return true;
+        }
+
+        public virtual async Task<bool> DisableRangeAsync<TDisable>(IEnumerable<TDisable> objsToDisable, bool shouldSave = false) where TDisable : AggregateRootEntity
+        {
+            var aggregateRootEntities = _mapper.Map<IEnumerable<TEntity>>(objsToDisable);
+            _unitOfWork.GetRepository<Repository<TEntity>>()
+                .DisableRange(aggregateRootEntities);
+            if (shouldSave)
+                await CommitAsync();
+            else return true;
+            return true;
         }
     }
 }

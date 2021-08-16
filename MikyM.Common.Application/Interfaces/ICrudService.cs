@@ -22,5 +22,11 @@ namespace MikyM.Common.Application.Interfaces
         Task<bool> DeleteRangeAsync<TDelete>(IEnumerable<TDelete> deleteObjects, bool shouldSave = false) where TDelete : AggregateRootEntity;
         Task<bool> DeleteRangeAsync(IEnumerable<T> deleteObjects, bool shouldSave = false);
         Task<bool> DeleteRangeAsync(IEnumerable<long> ids, bool shouldSave = false);
+        Task<bool> DisableAsync<TDisable>(TDisable deleteObject, bool shouldSave = false) where TDisable : AggregateRootEntity;
+        Task<bool> DisableAsync(T deleteObject, bool shouldSave = false);
+        Task<bool> DisableAsync(long id, bool shouldSave = false);
+        Task<bool> DisableRangeAsync<TDisable>(IEnumerable<TDisable> deleteObjects, bool shouldSave = false) where TDisable : AggregateRootEntity;
+        Task<bool> DisableRangeAsync(IEnumerable<T> deleteObjects, bool shouldSave = false);
+        Task<bool> DisableRangeAsync(IEnumerable<long> ids, bool shouldSave = false);
     }
 }
