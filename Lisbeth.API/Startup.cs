@@ -1,9 +1,11 @@
 using Autofac;
 using Lisbeth.API.DataAccessLayer.DbContext;
 using Lisbeth.API.ExceptionMiddleware;
+using Lisbeth.API.Helpers;
 using Lisbeth.API.Modules;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,7 +27,10 @@ namespace Lisbeth.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<LisbethDbContext>(opt => opt.UseInMemoryDatabase("TestDb"));
-            services.AddControllers();
+            services.AddControllers(options => 
+            {
+                options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Lisbeth", Version = "v1" });
