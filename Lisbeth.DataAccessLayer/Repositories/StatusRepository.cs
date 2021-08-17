@@ -1,15 +1,14 @@
 ﻿using Lisbeth.API.DataAccessLayer.DbContext;
 using Lisbeth.API.DataAccessLayer.Interfaces.Repositories;
-using Lisbeth.API.Domain.Entities.AggregateRootEntities;
+using Lisbeth.API.Domain.Entities.EnvironmentSpecificEntities;
 using MikyM.Common.DataAccessLayer.Repositories;
 
 namespace Lisbeth.API.DataAccessLayer.Repositories
 {
-    public class EnvironmentRepository : Repository<Environment>, IEnvironmentRepository
+    public class StatusRepository : Repository<Status>, IStatusRepository
     {
-        public EnvironmentRepository(LisbethDbContext ctx) : base(ctx)
+        public StatusRepository(LisbethDbContext ctx) : base(ctx)
         {
-            
         }
     }
 }

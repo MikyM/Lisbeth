@@ -5,11 +5,10 @@ using MikyM.Common.DataAccessLayer.Repositories;
 
 namespace Lisbeth.API.DataAccessLayer.Repositories
 {
-    public class EnvironmentRepository : Repository<Environment>, IEnvironmentRepository
+    public class BugRepository : Repository<Bug>, IBugRepository
     {
-        public EnvironmentRepository(LisbethDbContext ctx) : base(ctx)
+        public BugRepository(LisbethDbContext ctx) : base(ctx)
         {
-            
         }
     }
 }

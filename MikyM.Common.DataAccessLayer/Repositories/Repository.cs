@@ -86,10 +86,7 @@ namespace MikyM.Common.DataAccessLayer.Repositories
         public virtual void DisableRange(IEnumerable<TEntity> entities)
         {
             var aggregateRootEntities = entities.ToList();
-            foreach (var entity in aggregateRootEntities)
-            {
-                entity.IsDisabled = true;
-            }
+            aggregateRootEntities.ForEach(e => e.IsDisabled = true);
             UpdateRange(aggregateRootEntities);
         }
 

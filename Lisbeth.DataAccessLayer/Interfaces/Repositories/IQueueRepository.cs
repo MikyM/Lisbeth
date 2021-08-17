@@ -1,9 +1,10 @@
-﻿using Lisbeth.API.Domain.Entities;
+﻿using Lisbeth.API.Domain.Entities.AggregateRootEntities;
 using MikyM.Common.DataAccessLayer.Repositories;
 
 namespace Lisbeth.API.DataAccessLayer.Interfaces.Repositories
 {
-    public interface ITestEntityRepository : IRepository<TestEntity>
+    public interface IQueueRepository : IRepository<Queue>
     {
+        
     }
 }
