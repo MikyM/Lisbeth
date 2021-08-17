@@ -23,7 +23,6 @@ namespace Lisbeth.API.DataAccessLayer.DbContext
             ChangeTracker.StateChanged += OnEntityStateChanged;
         }
 
-        public DbSet<TestEntity> TestEntities { get; set; }
         public DbSet<AuditLog> AuditLogs { get; set; }
         public DbSet<Environment> Environments { get; set; }
         public DbSet<Project> Projects { get; set; }
@@ -31,6 +30,8 @@ namespace Lisbeth.API.DataAccessLayer.DbContext
         public DbSet<Tracker> Trackers { get; set; }
         public DbSet<Bug> Bugs { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<Status> Statuses { get; set; }
+        public DbSet<SpentTimeType> SpentTimeTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
