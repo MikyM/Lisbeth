@@ -15,8 +15,8 @@ namespace Lisbeth.API.Domain.Entities.AggregateRootEntities
         public List<TicketHistoryLog> History { get; set; }
         public List<Attachment> Attachments { get; set; }
         public List<Comment> Comments { get; set; }
-        public User AssignedTo { get; set; }
-        public User CreatedBy { get; set; }
+        public long AssignedToId { get; set; }
+        public long CreatedById { get; set; }
         public long ProjectId { get; set; }
         public Project Project { get; set; }
     }

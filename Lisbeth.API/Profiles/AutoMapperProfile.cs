@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Lisbeth.API.Domain.DTOs;
 using Lisbeth.API.Domain.DTOs.RequestDtos;
 using Lisbeth.API.Domain.DTOs.ResponseDtos;
@@ -6,6 +7,7 @@ using Lisbeth.API.Domain.Entities;
 using Lisbeth.API.Domain.Entities.AggregateRootEntities;
 using Lisbeth.API.Domain.Entities.EnvironmentSpecificEntities;
 using MikyM.Common.DataAccessLayer.Filters;
+using Environment = Lisbeth.API.Domain.Entities.AggregateRootEntities.Environment;
 
 namespace Lisbeth.API.Profiles
 {
@@ -38,6 +40,9 @@ namespace Lisbeth.API.Profiles
 
             //filters
             CreateMap<PaginationFilterDto, PaginationFilter>();
+
+            //additional
+            CreateMap<Uri, Attachment>().ForMember(dest => dest.Uri, opt => opt.MapFrom(src => src));
         }
     }
 }
